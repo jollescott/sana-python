@@ -83,7 +83,7 @@ def get_assets(ids):
 
 
 class LearnView():
-    def __init__(self, name, path='', description='', ordered=False, items):
+    def __init__(self, name, items, path='', description='', ordered=False):
         self.name = name
         self.path = path
         self.description = description
@@ -112,12 +112,12 @@ def get_view(id):
     return r.json()
 
 
-def get_all_views(last_view_id=None, limit=None)
- url = '{0}/v1/views'.format(get_base_url())
+def get_all_views(last_view_id=None, limit=None):
+    url = '{0}/v1/views'.format(get_base_url())
 
-  params = []
+    params = []
 
-   if last_view_id is not None:
+    if last_view_id is not None:
         params.append(('last_view_id', last_view_id))
 
     if limit is not None:
