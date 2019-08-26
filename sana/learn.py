@@ -37,7 +37,9 @@ class LearnAsset():
 
 def create_or_update_asset(asset):
     url = '{0}/v1/assets/{1}'.format(get_base_url(), asset.id)
-    r = requests.put(url, asset, headers=SANA_HEADERS)
+    r = requests.put(url, json=asset.__dict__, headers=SANA_HEADERS)
+
+    print(url)
 
     return r.ok
 
@@ -58,7 +60,7 @@ def get_asset(id):
 
 def create_or_update_assets(assets):
     url = '{0}/v1/assets'.format(get_base_url())
-    r = requests.put(url, assets, headers=SANA_HEADERS)
+    r = requests.put(url, json=assets.__dict__, headers=SANA_HEADERS)
 
     return r.ok()
 
@@ -93,7 +95,7 @@ class LearnView():
 
 def create_or_update_view(id, view):
     url = '{0}/v1/views/{1}'.format(get_base_url(), id)
-    r = requests.put(url, view, headers=SANA_HEADERS)
+    r = requests.put(url, json=view.__dict__, headers=SANA_HEADERS)
 
     return r.ok()
 
@@ -167,7 +169,7 @@ class UserEvent():
 
 def post_user_events(user_events):
     url = '{0}/v1/user-events'.format(get_base_url())
-    r = requests.post(url, user_events, headers=SANA_HEADERS)
+    r = requests.post(url, json=user_events.__dict__, headers=SANA_HEADERS)
 
     return r.ok()
 
@@ -199,7 +201,7 @@ def next_assets(user, view_id, asset_filter, mode, limit, user_events=None):
     if user_events is not None:
         data['user_events'] = user_events
 
-    r = requests.post(url, data=data, headers=SANA_HEADERS)
+    r = requests.post(url, json=data, headers=SANA_HEADERS)
     return r.json()
 
 
@@ -212,5 +214,5 @@ def user_filter_status(user_id, view_id, filters):
         'filters': filters
     }
 
-    r = requests.post(url, data=data, headers=SANA_HEADERS)
+    r = requests.post(url, json=data, headers=SANA_HEADERS)
     return r.json()
