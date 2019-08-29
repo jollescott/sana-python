@@ -3,8 +3,8 @@
 ######################
 
 
-EU = 'EU'
-US = 'US'
+REGION_EU = 'EU'
+REGION_US = 'US'
 
 
 ####################
@@ -12,8 +12,8 @@ US = 'US'
 ####################
 
 
-RESPONSE_SUBMIT = 'response_submit'
-THEORY_VIEWED = 'theory_viewed'
+USER_RESPONSE_SUBMIT = 'response_submit'
+USER_THEORY_VIEWED = 'theory_viewed'
 
 
 ##############
@@ -21,8 +21,8 @@ THEORY_VIEWED = 'theory_viewed'
 ##############
 
 
-LEARNER = 'learner'
-TESTER = 'tester'
+USER_LEARNER = 'learner'
+USER_TESTER = 'tester'
 
 
 ################
@@ -30,5 +30,14 @@ TESTER = 'tester'
 ################
 
 
-REVIEW = 'review'
-LEARN = 'learn'
+SESSION_REVIEW = 'review'
+SESSION_LEARN = 'learn'
+
+
+###############
+# Asset Types #
+###############
+
+
+ASSET_THEORY = 'theory'
+ASSET_EXERCISE = 'exercise'
