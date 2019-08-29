@@ -12,8 +12,8 @@ REGION_US = 'US'
 ####################
 
 
-USER_RESPONSE_SUBMIT = 'response_submit'
-USER_THEORY_VIEWED = 'theory_viewed'
+EVENT_RESPONSE_SUBMIT = 'response_submit'
+EVENT_THEORY_VIEWED = 'theory_viewed'
 
 
 ##############
