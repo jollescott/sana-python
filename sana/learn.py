@@ -23,6 +23,13 @@ SANA_HEADERS = {'X-API-KEY': SANA_API_KEY}
 ####################
 
 
+class AssetTag():
+
+    def __init__(self, name, value):
+        self.name = str(name)
+        self.value = str(value)
+
+
 class LearnAsset():
 
     def __init__(self, id, asset_type, tags=None, description='', content_url='', metadata=None):
@@ -38,8 +45,6 @@ class LearnAsset():
 def create_or_update_asset(asset):
     url = '{0}/v1/assets/{1}'.format(get_base_url(), asset.id)
     r = requests.put(url, json=asset.__dict__, headers=SANA_HEADERS)
-
-    print(url)
 
     return r.ok
 
@@ -60,7 +65,12 @@ def get_asset(id):
 
 def create_or_update_assets(assets):
     url = '{0}/v1/assets'.format(get_base_url())
-    r = requests.put(url, json=assets.__dict__, headers=SANA_HEADERS)
+
+    bulk = {
+        'assets': [asset.__dict__ for asset in assets]
+    }
+
+    r = requests.put(url, json=bulk, headers=SANA_HEADERS)
 
     return r.ok()
 
@@ -169,7 +179,12 @@ class UserEvent():
 
 def post_user_events(user_events):
     url = '{0}/v1/user-events'.format(get_base_url())
-    r = requests.post(url, json=user_events.__dict__, headers=SANA_HEADERS)
+
+    bulk = {
+        'user_events': [event.__dict__ for event in user_events]
+    }
+
+    r = requests.post(url, json=bulk, headers=SANA_HEADERS)
 
     return r.ok()
 
