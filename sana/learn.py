@@ -72,7 +72,7 @@ def create_or_update_assets(assets):
 
     r = requests.put(url, json=bulk, headers=SANA_HEADERS)
 
-    return r.ok()
+    return r.ok
 
 
 def delete_assets(ids):
@@ -107,14 +107,14 @@ def create_or_update_view(id, view):
     url = '{0}/v1/views/{1}'.format(get_base_url(), id)
     r = requests.put(url, json=view.__dict__, headers=SANA_HEADERS)
 
-    return r.ok()
+    return r.ok
 
 
 def delete_view(id):
     url = '{0}/v1/views/{1}'.format(get_base_url(), id)
     r = requests.delete(url, headers=SANA_HEADERS)
 
-    return r.ok()
+    return r.ok
 
 
 def get_view(id):
@@ -186,7 +186,7 @@ def post_user_events(user_events):
 
     r = requests.post(url, json=bulk, headers=SANA_HEADERS)
 
-    return r.ok()
+    return r.ok
 
 
 class AssetFilter():
