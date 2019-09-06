@@ -33,12 +33,12 @@ class AssetTag():
 class LearnAsset():
 
     def __init__(self, id, asset_type, tags=None, description='', content_url='', metadata=None):
-        self.id = id
+        self.id = str(id)
         self.type = asset_type
 
         self.tags = tags
-        self.description = description
-        self.content_url = content_url
+        self.description = str(description)
+        self.content_url = str(content_url)
         self.metadata = metadata
 
 
@@ -96,9 +96,9 @@ def get_assets(ids):
 
 class LearnView():
     def __init__(self, name, items, path='', description='', ordered=False):
-        self.name = name
-        self.path = path
-        self.description = description
+        self.name = str(name)
+        self.path = str(path)
+        self.description = str(description)
         self.ordered = ordered
         self.items = items
 
@@ -152,26 +152,27 @@ def get_all_views(last_view_id=None, limit=None):
 
 class UserEventAttribute():
     def __init__(self, view_id, asset_id, result, score=None, time_spent_ms=None):
-        self.view_id = view_id
-        self.asset_id = asset_id
-        self.result = result
-        self.score = score
-        self.time_spent_ms = time_spent_ms
+        self.view_id = str(view_id)
+        self.asset_id = str(asset_id)
+        self.result = str(result)
+        self.score = float(score)
+        self.time_spent_ms = int(time_spent_ms)
 
 
 class LearnUser():
     def __init__(self, id, user_type, test_cell=None):
-        self.id = id
-        self.type = user_type
-        self.test_cell = test_cell
+        self.id = str(id)
+        self.type = str(user_type)
+        self.test_cell = str(test_cell)
 
 
 class UserEvent():
-    def __init__(self, user, event_type, attributes, recommendation_context=None, tags=None, is_offline_event=None, metadata=None):
+    def __init__(self, user, event_type, attributes, timestamp, recommendation_context=None, tags=None, is_offline_event=None, metadata=None):
         self.user = user
-        self.type = event_type
+        self.type = str(event_type)
         self.attributes = attributes
-        self.recommendation_context = recommendation_context
+        self.timestamp = str(timestamp)
+        self.recommendation_context = str(recommendation_context)
         self.tags = tags
         self.is_offline_event = is_offline_event
         self.metadata = metadata
