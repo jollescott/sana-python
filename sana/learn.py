@@ -94,6 +94,18 @@ def get_assets(ids):
 ####################
 
 
+class ViewItemAttribute():
+    def __init__(self, partner_difficulty=0):
+        self.partner_difficulty = partner_difficulty
+
+
+class ViewItem():
+    def __init__(self, asset_id, path, attributes=None):
+        self.asset_id = asset_id
+        self.path = path
+        self.attributes = attributes
+
+
 class LearnView():
     def __init__(self, name, items, path='', description='', ordered=False):
         self.name = str(name)
@@ -210,7 +222,7 @@ def next_assets(user, view_id, asset_filter, mode, limit, user_events=None):
         'user': user,
         'view_id': view_id,
         'filter': asset_filter,
-        'mode' : mode,
+        'mode': mode,
         'limit': limit
     }
 
