@@ -112,7 +112,7 @@ class LearnView():
         self.path = str(path)
         self.description = str(description)
         self.ordered = ordered
-        self.items = items
+        self.items = [item.__dict__ for item in items]
 
 
 def create_or_update_view(id, view):
@@ -178,14 +178,20 @@ class LearnUser():
         self.test_cell = str(test_cell)
 
 
+class UserEventTag():
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+
 class UserEvent():
     def __init__(self, user, event_type, attributes, timestamp, recommendation_context=None, tags=None, is_offline_event=None, metadata=None):
         self.user = user
         self.type = str(event_type)
-        self.attributes = attributes
+        self.attributes = [attribute.__dict__ for attribute in attributes]
         self.timestamp = str(timestamp)
         self.recommendation_context = str(recommendation_context)
-        self.tags = tags
+        self.tags = [tag.__dict__ for tag in tags]
         self.is_offline_event = is_offline_event
         self.metadata = metadata
 
