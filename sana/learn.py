@@ -57,11 +57,13 @@ def delete_asset(id):
 
 
 def get_asset(id):
-    url = '{0}/v1/assets/{1}'.format(get_base_url(), id)
+    url = '{0}/v1/assets/{1}'.format(get_base_url(), str(id))
     r = requests.get(url, headers=SANA_HEADERS)
 
-    return r.json()
-
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
 
 def create_or_update_assets(assets):
     url = '{0}/v1/assets'.format(get_base_url())
@@ -83,10 +85,21 @@ def delete_assets(ids):
 
 
 def get_assets(ids):
-    url = '{0}/v1/assets?asset_ids={1}'.format(get_base_url(), json.dumps(ids))
+    query = ''
+
+    for id in ids:
+        if query != '':
+            query = query + ','
+
+        query = query + str(id)
+
+    url = '{0}/v1/assets?asset_ids={1}'.format(get_base_url(), query)
     r = requests.get(url, headers=SANA_HEADERS)
 
-    return r.json()
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
 
 
 ####################
@@ -102,6 +115,10 @@ class ViewItemAttribute():
 class ViewItem():
     def __init__(self, asset_id, path, attributes=None):
         self.asset_id = asset_id
+
+        if path.startswith('/') is False:
+            raise BaseException('Paths must start with a forward slash')
+
         self.path = path
         self.attributes = attributes
 
@@ -133,7 +150,10 @@ def get_view(id):
     url = '{0}/v1/views/{1}'.format(get_base_url(), id)
     r = requests.get(url, headers=SANA_HEADERS)
 
-    return r.json()
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
 
 
 def get_all_views(last_view_id=None, limit=None):
@@ -154,7 +174,11 @@ def get_all_views(last_view_id=None, limit=None):
             url = url + '&{0}={1}'.format(param[0], param[1])
 
     r = requests.get(url, headers=SANA_HEADERS)
-    return r.json()
+
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
 
 
 ######################
@@ -236,7 +260,11 @@ def next_assets(user, view_id, asset_filter, mode, limit, user_events=None):
         data['user_events'] = user_events
 
     r = requests.post(url, json=data, headers=SANA_HEADERS)
-    return r.json()
+
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
 
 
 def user_filter_status(user_id, view_id, filters):
@@ -249,4 +277,8 @@ def user_filter_status(user_id, view_id, filters):
     }
 
     r = requests.post(url, json=data, headers=SANA_HEADERS)
-    return r.json()
+
+    if r.ok:
+        return r.json()
+    else:
+        raise BaseException(r.text)
