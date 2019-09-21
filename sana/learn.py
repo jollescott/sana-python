@@ -215,7 +215,10 @@ class UserEvent():
         self.attributes = [attribute.__dict__ for attribute in attributes]
         self.timestamp = str(timestamp)
         self.recommendation_context = str(recommendation_context)
-        self.tags = [tag.__dict__ for tag in tags]
+        
+        if tags is not None:
+            self.tags = [tag.__dict__ for tag in tags]
+        
         self.is_offline_event = is_offline_event
         self.metadata = metadata
 
@@ -250,9 +253,9 @@ def next_assets(user, view_id, asset_filter, mode, limit, user_events=None):
 
     data = {
         'user': user,
-        'view_id': view_id,
-        'filter': asset_filter,
-        'mode': mode,
+        'view_id': str(view_id),
+        'filter': asset_filter.__dict__,
+        'mode': mode.__dict__,
         'limit': limit
     }
 
