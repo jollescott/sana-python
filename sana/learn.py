@@ -1,6 +1,5 @@
 from sana import SANA_API_KEY, SANA_API_REGION
-import requests
-import json
+import requests, json, datetime
 
 
 #############
@@ -186,7 +185,7 @@ def get_all_views(last_view_id=None, limit=None):
 ######################
 
 
-class UserEventAttribute():
+class UserEventAttributes():
     def __init__(self, view_id, asset_id, result, score=None, time_spent_ms=None):
         self.view_id = str(view_id)
         self.asset_id = str(asset_id)
@@ -209,12 +208,14 @@ class UserEventTag():
 
 
 class UserEvent():
-    def __init__(self, user, event_type, attributes, timestamp, recommendation_context=None, tags=None, is_offline_event=None, metadata=None):
-        self.user = user
+    def __init__(self, user, event_type, event_attributes, timestamp, recommendation_context=None, tags=None, is_offline_event=None, metadata=None):
+        self.user = user.__dict__
         self.type = str(event_type)
-        self.attributes = [attribute.__dict__ for attribute in attributes]
-        self.timestamp = str(timestamp)
-        self.recommendation_context = str(recommendation_context)
+        self.attributes = event_attributes.__dict__
+        self.timestamp = timestamp.replace(tzinfo=datetime.timezone.utc).isoformat()
+        
+        if recommendation_context is not None:
+            self.recommendation_context = str(recommendation_context)
         
         if tags is not None:
             self.tags = [tag.__dict__ for tag in tags]
@@ -248,11 +249,17 @@ class Mode():
         self.attributes = attributes
 
 
+class SanaUser():
+    def __init__(self, id, type):
+        self.id = str(id)
+        self.type = str(type)
+
+
 def next_assets(user, view_id, asset_filter, mode, limit, user_events=None):
     url = '{0}/v1/next-assets'.format(get_base_url())
 
     data = {
-        'user': user,
+        'user': user.__dict__,
         'view_id': str(view_id),
         'filter': asset_filter.__dict__,
         'mode': mode.__dict__,
