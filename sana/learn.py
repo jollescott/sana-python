@@ -35,7 +35,9 @@ class LearnAsset():
         self.id = str(id)
         self.type = asset_type
 
-        self.tags = [tag.__dict__ for tag in tags]
+        if tags is not None:
+            self.tags = [tag.__dict__ for tag in tags]
+            
         self.description = str(description)
         self.content_url = str(content_url)
         self.metadata = metadata
