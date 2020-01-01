@@ -1,5 +1,4 @@
-# Sana Labs Unofficial Python API [![Build Status](https://travis-ci.com/jollescott/sana-python.svg?branch=master)](https://travis-ci.com/jollescott/sana-python)
-
+# Sana Labs Unofficial Python API 
 Python library for Sana APIS (https://sanalabs.com/developer/).
 
 ## Initialization
